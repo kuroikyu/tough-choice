@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans|Roboto');
+:root {
+  /* one #5A3FD0 */
+  --hue-one: 251.2;
+  /* two #3FB5D0 */
+  --hue-two: 191.2;
+  --highlight-one: hsl(var(--hue-one), 60.7%, 53.1%);
+  --highlight-two: hsl(var(--hue-two), 60.7%, 53.1%);
+  --text-one: hsl(var(--hue-one), 15.7%, 52.5%);
+  --text-two: hsl(var(--hue-two), 15.7%, 52.5%);
+  --white: #f5f5f5;
+  font-size: 18px;
+  --title-font: 'Josefin Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  --body-font: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+/*
+  Default
+  #5A3FD0 hsl(251.2,60.7%,53.1%)
+  #3FB5D0 hsl(191.2,60.7%,53.1%)
+*/
+
+/*
+  Sunset
+  #E3A746 hsl(37.1,73.7%,58.2%)
+  #D13FB4 hsl(311.9,61.3%,53.3%)
+*/
+
+/*
+  Electric
+  #008efd hsl(206.3,100%,49.6%)
+  #2af597 hsl(152.2,91%,56.3%)
+*/
+
+/*
+  Miami
+  #00dbde hsl(180.8,100%,43.5%)
+  #fc00ff hsl(299.3,100%,50%)
+
+  #47d1d3 hsl(180.8,61.3%,55.3%)
+  #e052e2 hsl(299.3,71.3%,60.3%)
+*/
+
+/*
+  Joker
+  #28d022 hsl(117.9,71.9%,47.5%)
+  #5239D8 hsl(249.4,67.1%,53.5%)
+
+*/
