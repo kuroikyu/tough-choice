@@ -171,39 +171,8 @@ const Footer = styled.footer`
 class App extends Component {
   state = {
     title: '',
-    pros: [
-      {
-        id: 10001,
-        text: 'A pro',
-      },
-      {
-        id: 20002,
-        text: 'Another pro',
-      },
-      {
-        id: 30003,
-        text: 'And another one',
-      },
-    ],
-    cons: [
-      {
-        id: 10002,
-        text: 'A con',
-      },
-      {
-        id: 20003,
-        text: 'Another con',
-      },
-      {
-        id: 40003,
-        text:
-          'Another con but this time a very long one so we are sure it makes it to the next line',
-      },
-      {
-        id: 30004,
-        text: 'And another one',
-      },
-    ],
+    pros: [],
+    cons: [],
   };
 
   async componentWillMount() {
