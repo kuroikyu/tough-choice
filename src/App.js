@@ -4,12 +4,11 @@ import styled from 'styled-components';
 import Reasons from './components/Reasons';
 import Settings from './components/Settings';
 import EditableHeader from './components/EditableHeader';
-import { transition, mobileBreak } from './helpers';
+import { transition, mobileBreak, bigDesktopBreak } from './helpers';
 
 import './App.css';
 import logo from './logo.png';
 
-const bigDesktopBreak = '1500px';
 
 const StyledApp = styled.div`
   background: var(--highlight-two);
