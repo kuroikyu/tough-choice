@@ -4,12 +4,12 @@ import styled from 'styled-components';
 import Reasons from './components/Reasons';
 import Settings from './components/Settings';
 import EditableHeader from './components/EditableHeader';
-import { transition, mobileBreak } from './helpers';
+import { transition, mobileBreak, bigDesktopBreak } from './helpers';
 
 import './App.css';
 import logo from './logo.png';
 
-const bigDesktopBreak = '1500px';
+const localStorageName = 'tough-choice-state';
 
 const StyledApp = styled.div`
   background: var(--highlight-two);
@@ -175,9 +175,9 @@ class App extends Component {
     cons: [],
   };
 
-  async componentWillMount() {
+  async componentDidMount() {
     // Reinstate our local storage
-    const localStorageRef = localStorage.getItem('tough-choice-state');
+    const localStorageRef = localStorage.getItem(localStorageName);
     if (localStorageRef) {
       this.setState(JSON.parse(localStorageRef));
     }
@@ -186,7 +186,7 @@ class App extends Component {
   componentDidUpdate() {
     // Store data in local storage
     const currentState = JSON.stringify(this.state);
-    localStorage.setItem('tough-choice-state', currentState);
+    localStorage.setItem(localStorageName, currentState);
   }
 
   proRef = createRef();
@@ -234,6 +234,18 @@ class App extends Component {
     this.setState({ title: value });
   };
 
+  resetAllEntries = () => {
+    // Create blank state
+    const newState = {
+      title: '',
+      pros: [],
+      cons: [],
+    };
+
+    // Update state
+    this.setState(newState);
+  };
+
   render() {
     return (
       <StyledApp>
@@ -241,7 +253,7 @@ class App extends Component {
           <Logo>
             <img src={logo} alt="Tough Choice logo" />
           </Logo>
-          <Settings />
+          <Settings resetFunction={this.resetAllEntries} />
         </AppNav>
         <Header>
           <EditableHeader

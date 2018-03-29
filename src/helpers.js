@@ -3,6 +3,6 @@ const transitionType = 'ease';
 const transition = `${transitionTime} ${transitionType}`;
 
 const mobileBreak = '700px';
-const bigDesktopBreak = '1400px';
+const bigDesktopBreak = '1500px';
 
 export { transition, transitionTime, transitionType, mobileBreak, bigDesktopBreak };

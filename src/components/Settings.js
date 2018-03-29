@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import SettingsCog from 'react-feather/dist/icons/settings';
+import Trash from 'react-feather/dist/icons/trash-2';
 
 import { transition } from '../helpers';
+
+// Update version at the end in case there are breaking changes
+const localStorageName = 'tough-choice-color-100';
 
 const SettingsButton = styled.div`
   background: transparent;
@@ -29,12 +33,12 @@ const Menu = styled.div`
   right: -10px;
   top: 2.5em;
   width: auto;
+  min-width: 220px;
   z-index: 20;
 
   padding: 0 1em;
   text-align: left;
   border-radius: 7px;
-  ${'' /* background: rgba(245, 245, 245, 0.5); */};
   background: var(--white);
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.25);
   ul {
@@ -55,18 +59,32 @@ const Menu = styled.div`
   }
 `;
 
-const ColorSchemeButton = styled.button`
+const SettingsAction = styled.button`
   appearance: none;
   border: none;
   outline: none;
 
   width: 100%;
-
   display: flex;
   align-items: center;
   text-transform: capitalize;
   background: transparent;
   color: inherit;
+`;
+
+const SettingsIcon = styled.span`
+  width: 2.5em;
+  height: 2.5em;
+  margin-right: 1em;
+
+  border-radius: 50%;
+  border: 2px solid var(--white);
+  transition: border ${transition};
+
+  background-color: var(--highlight-one);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const ColoredCircle = styled.span`
@@ -88,11 +106,15 @@ const LiHeader = styled.li`
 `;
 
 export default class Settings extends Component {
+  static propTypes = {
+    resetFunction: PropTypes.func.isRequired,
+  };
+
   state = {
-    menuOpen: false,
+    menuOpen: true,
     colorSchemes: [
       {
-        name: 'default',
+        name: 'nebula',
         active: true,
         hsl: ['hsl(251.2,60.7%,53.1%)', 'hsl(191.2,60.7%,53.1%)'],
         hue: ['251.2', '191.2'],
@@ -112,26 +134,34 @@ export default class Settings extends Component {
     ],
   };
 
-  async componentWillMount() {
+  async componentDidMount() {
     // Reinstate our local storage
-    const localStorageRef = localStorage.getItem('tough-choice-color');
+    const localStorageRef = localStorage.getItem(localStorageName);
     if (localStorageRef) {
-      this.setState(JSON.parse(localStorageRef));
-    }
-  }
+      const currentState = [...this.state.colorSchemes];
+      const newState = currentState.map((el, i) => ({
+        ...el,
+        active: localStorageRef[i],
+      }));
 
-  componentDidMount() {
-    // Update Background Colors
-    this.updateBackgroundColors();
+      this.setState({ colorSchemes: JSON.parse(newState) });
+
+      // Update Background Colors
+      this.updateBackgroundColors();
+    }
   }
 
   componentDidUpdate() {
     // Update Background Colors
     this.updateBackgroundColors();
 
+    // Get active background
+    const background = this.state.colorSchemes.map(color => color.active);
+    console.log(background);
+
     // Store data in local storage
-    const currentState = JSON.stringify(this.state);
-    localStorage.setItem('tough-choice-color', currentState);
+    const currentStateBackground = JSON.stringify(background);
+    localStorage.setItem(localStorageName, currentStateBackground);
   }
 
   updateBackgroundColors = () => {
@@ -168,9 +198,6 @@ export default class Settings extends Component {
 
     // Push updated state to app
     this.setState({ colorSchemes: updatedState });
-
-    // document.documentElement.style.setProperty('--highlight-one', hsl[0]);
-    // document.documentElement.style.setProperty('--highlight-two', hsl[1]);
   };
 
   render() {
@@ -181,18 +208,29 @@ export default class Settings extends Component {
           {this.state.menuOpen && (
             <Menu>
               <ul>
-                {/* <li>Clear all</li> */}
+                <LiHeader>Settings</LiHeader>
+                <li>
+                  <SettingsAction onClick={this.props.resetFunction}>
+                    <SettingsIcon>
+                      <Trash />
+                    </SettingsIcon>
+                    Clear All
+                  </SettingsAction>
+                </li>
+
+                <br />
+
                 <LiHeader>Choose a background</LiHeader>
                 {this.state.colorSchemes.map(color => (
                   <li key={color.name}>
-                    <ColorSchemeButton
+                    <SettingsAction
                       onClickCapture={this.selectScheme}
                       name={color.name}
                       hsl={color.hsl}
                     >
                       <ColoredCircle hsl={color.hsl} />
                       {color.name}
-                    </ColorSchemeButton>
+                    </SettingsAction>
                   </li>
                 ))}
               </ul>
