@@ -111,7 +111,7 @@ export default class Settings extends Component {
   };
 
   state = {
-    menuOpen: true,
+    menuOpen: false,
     colorSchemes: [
       {
         name: 'nebula',
