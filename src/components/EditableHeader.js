@@ -51,7 +51,6 @@ class EditableHeader extends Component {
 
     // Update state with new value
     this.props.updateTitle(event.target.value);
-    console.log(event.target.value);
   };
 
   render() {

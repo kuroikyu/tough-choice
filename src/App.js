@@ -4,11 +4,12 @@ import styled from 'styled-components';
 import Reasons from './components/Reasons';
 import Settings from './components/Settings';
 import EditableHeader from './components/EditableHeader';
-import { transition, mobileBreak, bigDesktopBreak } from './helpers';
+import { transition, mobileBreak, bigDesktopBreak, randomTitle } from './helpers';
 
 import './App.css';
 import logo from './logo.png';
 
+const placeholderTitle = randomTitle();
 const localStorageName = 'tough-choice-state';
 
 const StyledApp = styled.div`
@@ -257,7 +258,7 @@ class App extends Component {
         </AppNav>
         <Header>
           <EditableHeader
-            placeholder="What is on your mind?"
+            placeholder={placeholderTitle}
             value={this.state.title}
             updateTitle={this.updateTitle}
           />
