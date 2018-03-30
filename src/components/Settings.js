@@ -138,13 +138,14 @@ export default class Settings extends Component {
     // Reinstate our local storage
     const localStorageRef = localStorage.getItem(localStorageName);
     if (localStorageRef) {
+      const parsedLocalStorage = JSON.parse(localStorageRef);
       const currentState = [...this.state.colorSchemes];
       const newState = currentState.map((el, i) => ({
         ...el,
-        active: localStorageRef[i],
+        active: parsedLocalStorage[i],
       }));
 
-      this.setState({ colorSchemes: JSON.parse(newState) });
+      this.setState({ colorSchemes: newState });
 
       // Update Background Colors
       this.updateBackgroundColors();
@@ -157,7 +158,7 @@ export default class Settings extends Component {
 
     // Get active background
     const background = this.state.colorSchemes.map(color => color.active);
-    console.log(background);
+    // console.log(background);
 
     // Store data in local storage
     const currentStateBackground = JSON.stringify(background);
